@@ -1,0 +1,72 @@
+with open("sinif not listesi.txt", "a", encoding="utf-8") as dosya:
+    dosya.close()
+
+
+k=1
+while True:
+    islem=input("Not tespiti icin 1\ncikis icin q =")
+    if islem=="q":
+        break
+    elif islem=="1":
+
+        isim=input("{}.ogrencinin ismi=".format(k))
+        soyisim=input("{}.ogrencinin soyismi=".format(k))
+        numara=input("{}.ogrencinin numarasi=".format(k))
+        vize1=input("{}.ogrencinin vize1 notu=".format(k))
+        vize2=input("{}.ogrencinin vize2 notu=".format(k))
+        final=input("{}.ogrencinin final notu=".format(k))
+
+        with open("sinif not listesi.txt","r",encoding="utf-8") as f:
+            data=f.read()
+            if numara in data:
+                print("{} numarali ogrenci daha once kaydedilmistir!\ntekrar deneyiniz!".format(numara))
+                continue
+
+            else:
+                ortalama=(30/100*int(vize1))+(30/100*int(vize2))+(60/100*int(final))
+                with open("sinif not listesi.txt","a",encoding="utf-8") as m:
+                    m.write(isim+" ")
+                    m.write(soyisim+" ")
+                    m.write(numara+" ")
+                    m.write("{}".format(ortalama))
+                    if ortalama >= 90:
+                        m.write(" Gecti-AA\n")
+
+                    elif ortalama >= 85:
+                        m.write(" Gecti-BA\n")
+
+                    elif ortalama >= 80:
+                        m.write(" Gecti-BB\n")
+
+                    elif ortalama >= 75:
+                        m.write(" Gecti-CB\n")
+
+                    elif ortalama >= 70:
+                        m.write(" Gecti-CC\n")
+
+                    elif ortalama >= 65:
+                        m.write(" SartliGecti-DC\n")
+
+                    elif ortalama >= 60:
+                         m.write(" SartliGecti-DD\n")
+
+                    elif ortalama >= 55:
+                        m.write(" Kaldi-FD\n")
+
+                    elif ortalama < 50:
+                        m.write(" Kaldi-FF\n")
+
+                    m.close()
+
+                    k+=1
+with open("sinif not listesi.txt","r",encoding="utf-8") as l:
+
+
+    for i in l:
+        if "Kaldi" in i:
+            with open("kalanlar.txt","a",encoding="utf-8") as w:
+                w.write(i)
+
+        elif "Gecti" in i:
+            with open("gecenler.txt", "a", encoding="utf-8") as g:
+                g.write(i)
