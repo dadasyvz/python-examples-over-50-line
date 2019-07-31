@@ -1,0 +1,50 @@
+"""
+*ekteki siiri;  
+1)icindeki rakamlardan arindirip,
+2)turkce karakterleri ingilizce karakterler ile degistirip,
+3)noktadan sonra ikinci misraya indirgeyelim
+4)4 misradan sonra kita degistirelim
+5)misra baslarini buyuk harf ile baslatalim
+6)ve yeni siiri farkli bir dosyaya kaydedelim"""
+
+
+turkce_harfler = "ÇçĞğİıÖöŞşÜüÝþ"
+
+karsilik = "CcGgIiOoSsUuIs"
+
+with open("siir.txt", "r+", encoding="utf-8") as file:
+    data = file.read()
+
+    ceviri = str.maketrans(turkce_harfler, karsilik)  # siir icindeki turkce karakterleri
+    data = data.translate(ceviri)  # karsilik dizini icindeki karsiliklari ile degistiriyor
+
+    for i in data:
+        if i == "\n":
+            data = data.replace(i, "")
+    for i in data:
+
+        if i.isdigit() == True:
+            data = data.replace(i, "")
+
+        if i == ".":
+            data = data.replace(i, "\n")
+            
+    with open("yeni siir.txt", "a", encoding="utf-8") as a:
+        a.write(data)
+
+with open("yeni siir.txt", "r", encoding="utf-8") as k:
+    new_data = k.readlines()
+
+    k = 0
+    for i in new_data:
+        if i[0]!=i[0].upper():
+            i=i.replace(i[0],i[0].upper())
+
+        if i.endswith("\n") == True:
+            k += 1
+            if k % 4 == 0:
+                i = i + "\n"
+
+
+        with open("yepyenisiir.txt", "a", encoding="utf-8") as a:
+            a.write(i)
