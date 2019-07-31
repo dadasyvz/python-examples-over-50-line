@@ -1,0 +1,68 @@
+head='\n1-kayit ekleme\n' \
+     '2-kayitlari goruntuleme\n' \
+     '3-kayit Ad-Tel guncelleme\n' \
+     '4-kayit silme\n' \
+     '5-cikis\n' \
+     '---->'
+a=[]
+rehber={}
+with open("rehber.txt", "r", encoding="utf-8") as f:
+    for i in f:
+        if i=="":
+            continue
+        else:
+            a = i.split("=")
+            rehber[a[0]] = a[1]
+
+while True:
+    islem = input(head)
+
+    if islem=="1":
+        ad=input("Ad Soyad=")
+        tel=input("TEL=")
+        rehber[ad]=tel
+        continue
+
+    elif islem=="2":
+        for i,j in rehber.items():
+            print(i,"=",j)
+        continue
+
+    elif islem=="3":
+        secim=input("1-Ad Soyad degisikligi \n"
+                    "2-Telefon numarasi guncelleme\n"
+                    "3-Ana menu\n"
+                    "------>")
+        if secim=="1":
+            degisiklik_ad=input("guncellemek istediginiz kisinin adi ve soyadi=")
+            guncel_ad=input("guncel ad-soyad=")
+            m=rehber[degisiklik_ad]
+            rehber.pop(degisiklik_ad)
+            rehber[guncel_ad]=m
+            continue
+
+        elif secim=="2":
+            guncel={}
+            degisiklik_ad=input("Tel numarasini guncellemek istediginiz kisinin ad-soyad=")
+            guncel_tel=input("guncel tel=")
+            guncel[degisiklik_ad]=guncel_tel
+            rehber.update(guncel)
+            continue
+
+    elif islem=="4":
+        sil=input("silmek istediginiz kaydin Ad-Soyad=")
+        if sil not in rehber:
+            print('yanlis giris yaptiniz tekrar deneyiniz')
+            continue
+        rehber.pop(sil)
+        continue
+
+    elif islem=="5":
+        break
+
+with open("rehber.txt","w",encoding="utf-8") as w:
+    for i,j in rehber.items():
+        w.write(i)
+        w.write("=")
+        w.write(j)
+        w.write("\n")
