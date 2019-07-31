@@ -1,0 +1,79 @@
+'''ŞIFRELEME UYGULAMASI
+
+	Kullaniciya iki secenek sunarak orjinal metni sifreli metne ve sifreli metni orjinal metne
+	donusturebilen bir program yazmanizi istiyoruz. Sozlukler yardimi ile bir sifreleme
+	algoritmasi olusturun ve kullanicidan alacaginiz inputu bu algoritma yoluyla sifreleyin ve 	ekrana yazdirin.
+	Kullanici daha sonra bu sifreli metni input olarak yazdiginda orjinal metne 	ulasabilsin. '''
+
+import random
+
+harfler=['a','b','c','d','e','f','g','h','i','j','k','l','m','n','o','p','q','r','s','t','u','x','w','v','y','z','A',
+         'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'X', 'W', 'V', 'Y', 'Z',' ']
+
+'''
+buyuk_harfler=[]
+for i in harfler:                       #sadece kucuk harflerin yazili oldugu listeye bu harflerin buyukleri de yazilmasi amaciyla bir kere calistirilmistir
+    buyuk_harfler.append(i.upper())
+
+print(buyuk_harfler)'''
+'''
+k_harfler=[]
+i=0
+while i<len(harfler):
+    m=(random.choice(harfler))
+    if m in k_harfler:                  #bir kereye mahsus harflere karsilik gelen kripto harfleri random sekilde eslestirmek amaciyla bir kere  calistirilmistir
+        continue
+    else:
+        k_harfler.append(m)
+    i+=1
+
+print(k_harfler)
+'''
+
+k_harfler=['b', 'e', 'v', 'j', 'Q', 'w', 'T', 'l', 'O', 'y', 'A', 'W', 'N', 'c', 'h', 'F', 'o', 'D', 'M', 'C', 'J', 'L', 'Y', 'I', 'x', 'E', 'K',
+           'X', 'B', 'i', 'R', 'd', 'S', 'H', 'n', 'P', 'f', 'U', 's', 'r', 'g', 't', 'Z', 'G', 'm', 'z', 'q', 'V', 'p', 'u', 'k', 'a','.']
+
+'''
+k_sozluk={}
+for i in range(0,len(harfler)-1)                #k_sozluk icerisinde  harfler ve k_harflerin karsilikli degerlenmesi icin bir kere calistirilmistir
+    k_sozluk[harfler[i]]=k_harfler[i]'''
+'''
+decrypt_sozluk = {}
+for i, j in k_sozluk.items():                   #decrypt icerisinde k_sozluk karsilikli degerlerinin bulunmasi icin bir kere calistirilmistir
+    decrypt_sozluk[j]=i
+'''
+
+k_sozluk={'a': 'b', 'b': 'e', 'c': 'v', 'd': 'j', 'e': 'Q', 'f': 'w', 'g': 'T', 'h': 'l', 'i': 'O', 'j': 'y', 'k': 'A', 'l': 'W', 'm': 'N', 'n': 'c',
+          'o': 'h', 'p': 'F', 'q': 'o', 'r': 'D', 's': 'M', 't': 'C', 'u': 'J', 'x': 'L', 'w': 'Y', 'v': 'I', 'y': 'x', 'z': 'E',
+           'A': 'K', 'B': 'X', 'C': 'B', 'D': 'i', 'E': 'R', 'F': 'd', 'G': 'S', 'H': 'H', 'I': 'n', 'J': 'P', 'K': 'f', 'L': 'U', 'M': 's',
+          'N': 'r', 'O': 'g', 'P': 't', 'Q': 'Z', 'R': 'G','S': 'm', 'T': 'z', 'U': 'q', 'X': 'V', 'W': 'p', 'V': 'u', 'Y': 'k',' ':'.'}
+
+decrypt_sozluk = {'b': 'a', 'e': 'b', 'v': 'c', 'j': 'd', 'Q': 'e', 'w': 'f', 'T': 'g', 'l': 'h', 'O': 'i', 'y': 'j', 'A': 'k', 'W': 'l', 'N': 'm', 'c': 'n', 'h': 'o',
+                  'F': 'p', 'o': 'q', 'D': 'r', 'M': 's', 'C': 't', 'J': 'u', 'L': 'x', 'Y': 'w',
+                    'I': 'v', 'x': 'y', 'E': 'z', 'K': 'A', 'X': 'B', 'B': 'C', 'i': 'D', 'R': 'E', 'd': 'F', 'S': 'G',
+                  'H': 'H', 'n': 'I', 'P': 'J', 'f': 'K', 'U': 'L', 's': 'M', 'r': 'N', 'g': 'O', 't': 'P', 'Z': 'Q', 'G': 'R',
+                    'm': 'S', 'z': 'T', 'q': 'U', 'V': 'X', 'p': 'W', 'u': 'V', 'k': 'Y', '.': ' '}
+
+while True:
+    secim=input("1-kriptolama \n"
+                "2-şifre çözme\n"
+                "3-cikis\n"
+                "------->")
+
+    if secim=="1":
+        kripto=input("kriptolamak istediginiz kelime veya kelime gruplarini giriniz=")
+        yeni_deger=""
+        for i in kripto:
+            yeni_deger+=k_sozluk[i]
+        print(yeni_deger)
+
+    elif secim=="2":
+        decrypt=input("cozumlemek istediginiz kelime veya kelime gruplarini giriniz=")
+        cozulmus_deger=""
+        for i in decrypt:
+            cozulmus_deger+=decrypt_sozluk[i]
+        print(cozulmus_deger)
+
+
+    elif secim=="3":
+        break
